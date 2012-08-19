@@ -6,21 +6,22 @@
 	var marker_ary = new Array();
 	var currentInfoWindow;
 	var mapObj;
+	var bermudaTriangle;
 
 	function initialize() {
-		var latlng = new google.maps.LatLng(39.010648,35.438232);
+		//var latlng = new google.maps.LatLng(39.010648,35.438232);
+		var latlng = new google.maps.LatLng(24.886436490787712, -70.2685546875);
+		
 		var myOptions = {
-      	zoom: 5,
-      	center: latlng,
-      	mapTypeId: google.maps.MapTypeId.ROADMAP
+      		zoom: 5,
+      		center: latlng,
+      		mapTypeId: google.maps.MapTypeId.ROADMAP
       	};
     
     	mapObj = new google.maps.Map(
-    	document.getElementById("map_canvas"),
-    	myOptions);
-		
-		setPointMarker();
-			
+    		document.getElementById("map_canvas"),
+    		myOptions);
+    	setPointMarker();
 	}
 
       //マーカー削除
@@ -74,10 +75,10 @@
 	    //リストの内容を削除
 	    $('#pointlist > ul').empty();
 		var root = getDir();
-
+		
 		//XML取得
 		$.ajax({			
-			url:root+"sample002.xml",
+			url:root+"sample003.xml",
 			type:'GET',
 			dataType:'xml',
 			timeout:1000,
@@ -86,40 +87,54 @@
 			},
 			success:function(xml){
 				//帰ってきた地点の数だけループ
-				$(xml).find("Locate").each(function(){
-					var LocateLat = $("lat",this).text();
-					var LocateLng = $("lng",this).text();
-                    var LocateName = $("name",this).text();
-                    //マーカーをセット
-                    MarkerSet(LocateLat,LocateLng,LocateName);
-					//リスト表示
-                    //リストに対応するマーカー配列キーをセット
-                    var marker_num = marker_ary.length - 1;
-					//liとaタグをセット
-					loc = $('<li>').append($('<a href="javascript:void(0)"/>').text(LocateName));
-					//セットしたタグにイベント「マーカーがクリックされた」をセット
-                    loc.bind('click', function(){
-                        google.maps.event.trigger(marker_ary[marker_num], 'click');
-                    });
-					//リスト表示
-					$('#pointlist > ul').append(loc);
+				$(xml).find("Region").each(function(){
+					var myObj = this;
+					var	aryRegionLatLng = new Array();
+					$(myObj).find("Point").each(function(){
+						var lat = $("lat",this).text();
+						var lng = $("lng",this).text();
+						aryRegionLatLng.push(new google.maps.LatLng(lat,lng));
+					});
+					
+                    var LocateName = $("name_ja",this).text();
+                    
+                    //ポリゴン生成
+           			var Polygon = new google.maps.Polygon({
+                		//ポリゴンのオプション設定
+                		paths: aryRegionLatLng,
+                		strokeColor: "#0000ff",
+               			strokeOpacity: 0.8,
+                		strokeWeight: 2,
+                		fillColor: "#0000ff",
+                		fillOpacity: 0.35,
+                		map: mapObj
+                	});
+            		//ポリゴンを地図に追加
+            		Polygon.setMap(mapObj);
+            	
 				});
+				
 			}
 		});
+		
 	}
 	
 	
-	//このgmap002.jsがあるファイルディレクトリを取得
+	//このgmap003.jsがあるファイルディレクトリを取得
 	function getDir(){
 		var scripts = document.getElementsByTagName("script");
 		var i = scripts.length;
 		while (i--) {
-		var match = scripts[i].src.match(/(^|.*\/)gmap002\.js$/);
+//			alert(i+scripts[i].src);
+			
+		var match = scripts[i].src.match(/(^|.*\/)gmap003polygon\.js$/);
 		if (match) {
 			var root = match[1];
 			break;
 			}
 		}
+//		alert(root);
+//		alert(typeof(root));
 		return root;
 	}
 			
