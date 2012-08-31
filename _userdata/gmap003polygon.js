@@ -6,11 +6,10 @@
 	var marker_ary = new Array();
 	var currentInfoWindow;
 	var mapObj;
-	var bermudaTriangle;
 
 	function initialize() {
-		//var latlng = new google.maps.LatLng(39.010648,35.438232);
-		var latlng = new google.maps.LatLng(24.886436490787712, -70.2685546875);
+		var latlng = new google.maps.LatLng(39.010648,35.438232);
+		//var latlng = new google.maps.LatLng(24.886436490787712, -70.2685546875);
 		
 		var myOptions = {
       		zoom: 5,
@@ -39,38 +38,6 @@
         }
     }
 
-
-    function MarkerSet(lat,lng,text){
-        var marker_num = marker_ary.length;
-        var marker_position = new google.maps.LatLng(lat,lng);
-        var markerOpts = {
-            map: mapObj,
-            position: marker_position
-        };
-        marker_ary[marker_num] = new google.maps.Marker(markerOpts);
- 
-        //textが渡されていたらふきだしをセット
-        if(text.length>0){
-            var infoWndOpts = {
-                content : text
-            };
-            var infoWnd = new google.maps.InfoWindow(infoWndOpts);
-            google.maps.event.addListener(marker_ary[marker_num], "click", function(){
- 
-                //先に開いた情報ウィンドウがあれば、closeする
-                if (currentInfoWindow) {
-                    currentInfoWindow.close();
-                }
- 
-                //情報ウィンドウを開く
-                infoWnd.open(mapObj, marker_ary[marker_num]);
- 
-                //開いた情報ウィンドウを記録しておく
-                currentInfoWindow = infoWnd;
-            });
-        }
-    }
-
 	function setPointMarker() {
 	    //リストの内容を削除
 	    $('#pointlist > ul').empty();
@@ -90,28 +57,55 @@
 				$(xml).find("Region").each(function(){
 					var myObj = this;
 					var	aryRegionLatLng = new Array();
+					
+					//<Region>データ読み込み
 					$(myObj).find("Point").each(function(){
 						var lat = $("lat",this).text();
 						var lng = $("lng",this).text();
 						aryRegionLatLng.push(new google.maps.LatLng(lat,lng));
 					});
-					
-                    var LocateName = $("name_ja",this).text();
+					lat = $("Center > lat", this).text();
+					lng = $("Center > lng", this).text();
+					var regionCenter = new google.maps.LatLng(lat, lng);
+                    var regionName = $("name_ja",this).text();
+                    var regionStrokeColor = $("strokeColor",this).text();
+                    var regionStrokeOpacity = $("strokeOpacity",this).text();
+                    var regionStrokeWeight = $("strokeWeight",this).text();
+                    var regionFillColor = $("fillColor",this).text();
+                    var regionFillOpacity = $("fillOpacity",this).text();
                     
                     //ポリゴン生成
            			var Polygon = new google.maps.Polygon({
                 		//ポリゴンのオプション設定
-                		paths: aryRegionLatLng,
-                		strokeColor: "#0000ff",
-               			strokeOpacity: 0.8,
-                		strokeWeight: 2,
-                		fillColor: "#0000ff",
-                		fillOpacity: 0.35,
-                		map: mapObj
+                		paths: 			aryRegionLatLng,
+                		strokeColor: 	regionStrokeColor,
+               			strokeOpacity: 	regionStrokeOpacity,
+                		strokeWeight: 	regionStrokeWeight,
+                		fillColor: 		regionFillColor,
+                		fillOpacity: 	regionFillOpacity,
+                		map: 			mapObj
                 	});
             		//ポリゴンを地図に追加
             		Polygon.setMap(mapObj);
-            	
+            		
+                    //clickイベント追加
+					var infoWndOpts = { 
+						content:regionName,
+						position:regionCenter
+					};
+					var infoWnd = new google.maps.InfoWindow(infoWndOpts);
+					google.maps.event.addListener(Polygon, "click", function(){
+						//先に開いていたウィンドウがあれば閉じる
+						if (currentInfoWindow) {
+							currentInfoWindow.close();
+						}
+						//alert(regionName);
+						//infoWnd.open(mapObj, Polygon);
+						infoWnd.open(mapObj);
+						
+						currentInfoWindow = infoWnd;
+                    });
+                    
 				});
 				
 			}
@@ -124,17 +118,13 @@
 	function getDir(){
 		var scripts = document.getElementsByTagName("script");
 		var i = scripts.length;
-		while (i--) {
-//			alert(i+scripts[i].src);
-			
+		while (i--) {			
 		var match = scripts[i].src.match(/(^|.*\/)gmap003polygon\.js$/);
 		if (match) {
 			var root = match[1];
 			break;
 			}
 		}
-//		alert(root);
-//		alert(typeof(root));
 		return root;
 	}
 			

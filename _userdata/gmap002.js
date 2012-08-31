@@ -85,6 +85,7 @@
 				alert("xml読み込み失敗");
 			},
 			success:function(xml){
+
 				//帰ってきた地点の数だけループ
 				$(xml).find("Locate").each(function(){
 					var LocateLat = $("lat",this).text();

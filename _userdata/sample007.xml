@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Locations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Locate>
+		<lat>40.18389</lat>
+		<lng>29.061883</lng>
+		<name_ja>ウル・ジャーミィ</name_ja>
+		<name_eng>Ulu Camii</name_eng>
+		<name_loc></name_loc>
+		<address></address>		
+	</Locate>
+	<Locate>
+		<lat>40.181945</lat>
+		<lng>29.07455</lng>
+		<name_ja>イェシル・テュルベ</name_ja>
+		<name_eng>Yeşil Camii</name_eng>
+		<name_loc></name_loc>
+		<address></address>
+	</Locate>
+	<Locate>
+		<lat>40.181007</lat>
+		<lng>29.081035</lng>
+		<name_ja>エミール・スルタン・ジャーミィ</name_ja>
+		<name_eng>Emir Sultan Camii</name_eng>
+		<name_loc></name_loc>
+		<address>Doyuran Caddesi, Bursa 16360, Turkey</address>
+	</Locate>
+	<Locate>
+		<lat>40.184779</lat>
+		<lng>29.063209</lng>
+		<name_ja>バザール(チャルシュ)</name_ja>
+		<name_eng>Çarşı</name_eng>
+		<name_loc>Çarşı</name_loc>
+		<address></address>
+	</Locate>
+</Locations>

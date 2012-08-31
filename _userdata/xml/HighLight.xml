@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Locations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Map>
+		<lat>36.335</lat>
+		<lng>29.32028</lng>
+		<name>Xanthos-Letoon</name>
+		<zoom>5</zoom>
+	</Map>
+	<Locate>
+		<lat>36.335</lat>
+		<lng>29.32028</lng>
+		<name>Xanthos-Letoon</name>
+	</Locate>
+	<Locate>
+		<lat>37.6666666667</lat>
+		<lng>32.8280555556</lng>
+		<name>Neolithic Site of Çatalhöyük</name>
+	</Locate>
+	<Locate>
+		<lat>37.92389</lat>
+		<lng>29.12333</lng>
+		<name>Hierapolis-Pamukkale</name>
+	</Locate>
+	<Locate>
+		<lat>38.03661</lat>
+		<lng>38.76369</lng>
+		<name>Nemrut Dağ</name>
+	</Locate>
+	<Locate>
+		<lat>38.66667</lat>
+		<lng>34.85</lng>
+		<name>Göreme National Park and the Rock Sites of Cappadocia</name>
+	</Locate>
+	<Locate>
+		<lat>39.37361</lat>
+		<lng>38.12361</lng>
+		<name>Great Mosque and Hospital of Divriği</name>
+	</Locate>
+	<Locate>
+		<lat>39.95644</lat>
+		<lng>26.239</lng>
+		<name>Archaeological Site of Troy</name>
+	</Locate>
+	<Locate>
+		<lat>40.01389</lat>
+		<lng>34.62056</lng>
+		<name>Hattusha: the Hittite Capital</name>
+	</Locate>
+	<Locate>
+		<lat>41.00847</lat>
+		<lng>28.97993</lng>
+		<name>Historic Areas of Istanbul</name>
+	</Locate>
+	<Locate>
+		<lat>41.26</lat>
+		<lng>32.68972</lng>
+		<name>City of Safranbolu</name>
+	</Locate>
+	<Locate>
+		<lat>41.6777777778</lat>
+		<lng>26.5594444444</lng>
+		<name>Selimiye Mosque and its Social Complex</name>
+	</Locate>
+</Locations>
